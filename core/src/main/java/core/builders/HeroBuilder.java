@@ -1,5 +1,6 @@
 package core.builders;
 
+import core.models.Gender;
 import core.models.Hero;
 
 public class HeroBuilder extends BuilderBase<Hero> {
@@ -15,6 +16,11 @@ public class HeroBuilder extends BuilderBase<Hero> {
 
     public HeroBuilder alterEgo(String value) {
         Target.alterEgo = value;
+        return this;
+    }
+
+    public HeroBuilder gender(Gender value) {
+        Target.gender = value;
         return this;
     }
 }

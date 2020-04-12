@@ -1,5 +1,7 @@
 package core.builders;
 
+import com.google.gson.Gson;
+import core.models.Gender;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,5 +14,25 @@ public class HeroBuilderShould {
 
         assertThat(actual.alterEgo).isEqualTo("Clark Kent");
         assertThat(actual.name).isEqualTo("Superman");
+    }
+
+    @Test
+    public void produceHeroJsonWithSpecifiedSerializedName() {
+        var model = new HeroBuilder().name("Batman").alterEgo("Bruce Wayne").build();
+
+        var gson = new Gson();
+        var json = gson.toJson(model);
+
+        assertThat(json).contains("alter-ego");
+    }
+
+    @Test
+    public void produceHeroJsonWithEnumNameAsValue() {
+        var model = new HeroBuilder().gender(Gender.MALE).build();
+
+        var gson = new Gson();
+        var json = gson.toJson(model);
+
+        assertThat(json).contains("MALE");
     }
 }
