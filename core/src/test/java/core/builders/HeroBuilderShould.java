@@ -2,7 +2,11 @@ package core.builders;
 
 import com.google.gson.Gson;
 import core.models.Gender;
+import core.models.Villain;
+import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
+
+import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,5 +38,13 @@ public class HeroBuilderShould {
         var json = gson.toJson(model);
 
         assertThat(json).contains("MALE");
+    }
+
+    @Test
+    public void addVillainToEnemiesList() {
+        var model = new HeroBuilder().name("Superman")
+                .hasEnemy(v -> v.name("Lex Luthor")).build();
+
+        assertThat(model.enemies).anyMatch(villain -> villain.name == "Lex Luthor");
     }
 }
