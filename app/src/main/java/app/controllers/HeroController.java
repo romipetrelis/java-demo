@@ -3,8 +3,10 @@ package app.controllers;
 import core.builders.HeroBuilder;
 import core.models.Gender;
 import core.models.Hero;
+import core.services.HeroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("hero")
 public class HeroController {
 
-    @GetMapping("/batman")
-    public ResponseEntity<Hero> batman() {
-        var model = new HeroBuilder()
-                .name("Batman")
-                .alterEgo("Bruce Wayne")
-                .gender(Gender.MALE)
-                .build();
+    private final HeroService heroService;
 
+    public HeroController(final HeroService heroService) {
+
+        this.heroService = heroService;
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Hero> get(@PathVariable String name) {
+
+        var model = heroService.getHeroByName(name);
         return ResponseEntity.ok(model);
     }
 }

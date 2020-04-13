@@ -19,6 +19,7 @@
     <modules>
         <module>core</module>
         <module>app</module>
+        <module>core-guice</module>
     </modules>
 
     <dependencies>
