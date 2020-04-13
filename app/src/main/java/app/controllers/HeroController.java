@@ -1,7 +1,5 @@
 package app.controllers;
 
-import core.builders.HeroBuilder;
-import core.models.Gender;
 import core.models.Hero;
 import core.services.HeroService;
 import org.springframework.http.ResponseEntity;
