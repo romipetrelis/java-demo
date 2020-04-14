@@ -3,6 +3,7 @@ package core.services;
 import core.builders.HeroBuilder;
 import core.models.Gender;
 import core.models.Hero;
+import org.slf4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +13,11 @@ import java.util.HashMap;
 @Scope("singleton")
 public class HeroService {
     private final HashMap<String, Hero> db;
+    private final Logger logger;
 
-    public HeroService() {
+    public HeroService(final Logger logger) {
+        this.logger = logger;
+
         db = new HashMap<>();
         var batman = new HeroBuilder()
                 .name("Batman")
@@ -37,6 +41,8 @@ public class HeroService {
     }
 
     public Hero getHeroByName(String name) {
+        logger.info("Getting hero by name {}", name);
+
         return db.get(name.toLowerCase());
     }
 }
